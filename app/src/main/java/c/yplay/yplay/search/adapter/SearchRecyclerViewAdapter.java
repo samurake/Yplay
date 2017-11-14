@@ -25,6 +25,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         public MyViewHolder(View view) {
             super(view);
             // view initialisation here
+            ///
         }
     }
 
