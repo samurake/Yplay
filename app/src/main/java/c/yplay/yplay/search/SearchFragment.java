@@ -1,5 +1,6 @@
 package c.yplay.yplay.search;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,10 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private List<Result> resultList = new ArrayList<>();
+    private volatile List<Result> resultList = new ArrayList<>();
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter adapter;
+    Button btn;
 
     private Handler handler;
 
@@ -68,43 +71,57 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         handler = new Handler();
+
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.search_container);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        searchOnYoutube("salam");
-    }
-
-    private void updateVideoFound(){
-        resultList = new ArrayList<>();
 
         Result a = new Result();
         a.setId("a");
         a.setTitle("blabla");
         a.setDescription("tralala");
         resultList.add(a);
-        adapter = new SearchRecyclerViewAdapter(this.getContext(),resultList);
+
+
+        adapter = new SearchRecyclerViewAdapter(getContext(),resultList);
         recyclerView.setAdapter(adapter);
+
+         btn=(Button)view.findViewById(R.id.button);
+         btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new LongOperation().execute();
+            }
+        });
+
+        return view;
     }
 
-    private void searchOnYoutube(final String keywords){
-        new Thread(){
-            public void run(){
-                YoutubeConnector yc = new YoutubeConnector(getActivity());
-                resultList = new ArrayList<>();
-                resultList = yc.search(keywords);
-                handler.post(new Runnable(){
-                    public void run(){
-                        updateVideoFound();
-                    }
-                });
-            }
-        }.start();
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    public class LongOperation extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            YoutubeConnector yc = new YoutubeConnector(getContext());
+            resultList.addAll(yc.search("salam")) ;
+            int i = 1;
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 }

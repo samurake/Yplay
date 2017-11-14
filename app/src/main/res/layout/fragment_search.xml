@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     tools:context="c.yplay.yplay.search.SearchFragment">
 
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button"
+        android:text="send data"/>
     <View
         android:id="@+id/search_banner"
         android:layout_width="match_parent"

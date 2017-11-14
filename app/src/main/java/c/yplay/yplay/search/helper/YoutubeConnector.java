@@ -49,11 +49,11 @@ public class YoutubeConnector {
 
     public List<Result> search(String keywords){
         query.setQ(keywords);
+        List<Result> items = new ArrayList<Result>();
         try{
             SearchListResponse response = query.execute();
             List<SearchResult> results = response.getItems();
 
-            List<Result> items = new ArrayList<Result>();
             for(SearchResult result:results){
                 Result item = new Result();
                 item.setTitle(result.getSnippet().getTitle());
@@ -61,11 +61,11 @@ public class YoutubeConnector {
                 item.setThumbnailURL(result.getSnippet().getThumbnails().getDefault().getUrl());
                 item.setId(result.getId().getVideoId());
                 items.add(item);
+
             }
-            return items;
         }catch(IOException e){
             Log.d("YC", "Could not search: "+e);
-            return null;
         }
+        return items;
     }
 }
