@@ -1,20 +1,15 @@
 package c.yplay.yplay.search;
 
-import android.widget.ImageView;
-
-import c.yplay.yplay.R;
-
 /**
  * Created by samur on 11/14/2017.
  */
-
 public class Result {
 
     private String title;
     private String title1;
     private int imageView;
 
-    public Result(){};
+    public Result(){}
 
     public Result(String title, String title1, int imageResource){
 
@@ -30,8 +25,6 @@ public class Result {
     public void setTitle1(String title1) {
         this.title1 = title1;
     }
-
-
 
     public String GetTitle(   ){
         return title;

@@ -1,42 +1,39 @@
 package c.yplay.yplay.search.adapter;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import c.yplay.yplay.R;
 import c.yplay.yplay.search.Result;
 
 /**
  * Created by samur on 11/14/2017.
  */
-
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.MyViewHolder> {
 
     private List<Result> resultList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title,title1 ;
-        public ImageView image;
-        // declare list element(views)
+        @BindView(R.id.title)
+        TextView title;
+        @BindView(R.id.title1)
+        TextView title1;
+        @BindView(R.id.image)
+        ImageView image;
+
+
         public MyViewHolder(View view) {
             super(view);
-            // view initialisation here
-
-            title=(TextView)view.findViewById(R.id.title);
-            title1=(TextView)view.findViewById(R.id.title1);
-            image=(ImageView)view.findViewById(R.id.image);
-
-            ///
+            ButterKnife.bind(this,view);
         }
     }
 

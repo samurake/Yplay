@@ -17,6 +17,7 @@ public class SearchActivity extends BaseActivity {
 
         // Initialize search fragment
         Fragment searchFragment = SearchFragment.newInstance("works","works");
+
         // Doing fragment transaction here at first activity start
         if(savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

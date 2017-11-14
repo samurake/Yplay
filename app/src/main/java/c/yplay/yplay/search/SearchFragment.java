@@ -1,10 +1,7 @@
 package c.yplay.yplay.search;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,30 +63,21 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         populateLayout();
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
-
-
         recyclerView = (RecyclerView) view.findViewById(R.id.search_container);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new SearchRecyclerViewAdapter(resultList);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        // Inflate the layout for this fragment
-
         return view;
     }
 
     void populateLayout(){
-
         for (int i=0;i<24;i++) {
             Result a;
             a = new Result("Title :"+i,"Title1 :"+(i+1),R.drawable.ic_launcher_background);
             resultList.add(a);
         }
-        //adapter.notifyDataSetChanged();
     }
 }
