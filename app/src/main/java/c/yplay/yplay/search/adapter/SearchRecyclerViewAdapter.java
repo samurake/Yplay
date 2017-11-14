@@ -1,5 +1,6 @@
 package c.yplay.yplay.search.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,8 +58,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         Result resultT = resultList.get(position);
         holder.title.setText(resultT.GetTitle());
         holder.title1.setText(resultT.GetTitle1());
-
-        //holder.image.setImageDrawable();
+        holder.image.setImageResource(resultT.GetImage());
     }
 
     @Override

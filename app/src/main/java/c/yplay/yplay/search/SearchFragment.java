@@ -87,7 +87,7 @@ public class SearchFragment extends Fragment {
 
         for (int i=0;i<24;i++) {
             Result a;
-            a = new Result("Title :"+i,"Title1 :"+(i+1));
+            a = new Result("Title :"+i,"Title1 :"+(i+1),R.drawable.ic_launcher_background);
             resultList.add(a);
         }
         //adapter.notifyDataSetChanged();
