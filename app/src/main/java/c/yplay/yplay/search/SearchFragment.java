@@ -82,6 +82,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateVideoFound(){
+        resultList = new ArrayList<>();
+
+        Result a = new Result();
+        a.setId("a");
+        a.setTitle("blabla");
+        a.setDescription("tralala");
+        resultList.add(a);
         adapter = new SearchRecyclerViewAdapter(this.getContext(),resultList);
         recyclerView.setAdapter(adapter);
     }
