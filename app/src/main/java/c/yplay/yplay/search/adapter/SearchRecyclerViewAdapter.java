@@ -1,11 +1,14 @@
 package c.yplay.yplay.search.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ import c.yplay.yplay.search.Result;
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.MyViewHolder> {
 
     private List<Result> resultList;
+    private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -38,7 +42,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     }
 
 
-    public SearchRecyclerViewAdapter(List<Result> resultList) {
+    public SearchRecyclerViewAdapter(Context context, List<Result> resultList) {
+        this.context = context;
         this.resultList = resultList;
     }
 
@@ -54,8 +59,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Result resultT = resultList.get(position);
         holder.title.setText(resultT.GetTitle());
-        holder.title1.setText(resultT.GetTitle1());
-        holder.image.setImageResource(resultT.GetImage());
+        holder.title1.setText(resultT.GetDescription());
+        Picasso.with(context).load(resultT.getThumbnailURL()).into(holder.image);
     }
 
     @Override

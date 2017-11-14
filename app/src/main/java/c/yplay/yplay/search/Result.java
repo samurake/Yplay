@@ -5,34 +5,42 @@ package c.yplay.yplay.search;
  */
 public class Result {
 
+    private String id;
     private String title;
-    private String title1;
-    private int imageView;
+    private String description;
+    private String thumbnailURL;
 
     public Result(){}
 
-    public Result(String title, String title1, int imageResource){
-
-        this.title=title;
-        this.title1=title1;
-        this.imageView=imageResource;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setTitle1(String title1) {
-        this.title1 = title1;
+    public void setDescription(String title1) {
+        this.description = title1;
+    }
+
+    public void setThumbnailURL(String thumbnail) {
+        this.thumbnailURL = thumbnail;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String GetTitle(   ){
         return title;
     }
-    public String GetTitle1(){
-        return title1;
+
+    public String GetDescription(){
+        return description;
     }
-    public int GetImage(){
-        return imageView;
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
     }
 }

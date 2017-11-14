@@ -1,6 +1,7 @@
 package c.yplay.yplay.search;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import c.yplay.yplay.R;
 import c.yplay.yplay.search.adapter.SearchRecyclerViewAdapter;
+import c.yplay.yplay.search.helper.YoutubeConnector;
 
 
 public class SearchFragment extends Fragment {
@@ -27,7 +29,9 @@ public class SearchFragment extends Fragment {
 
     private List<Result> resultList = new ArrayList<>();
     private RecyclerView recyclerView;
-    SearchRecyclerViewAdapter adapter;
+    private SearchRecyclerViewAdapter adapter;
+
+    private Handler handler;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -63,21 +67,37 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        populateLayout();
+        handler = new Handler();
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.search_container);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new SearchRecyclerViewAdapter(resultList);
-        recyclerView.setAdapter(adapter);
         return view;
     }
 
-    void populateLayout(){
-        for (int i=0;i<24;i++) {
-            Result a;
-            a = new Result("Title :"+i,"Title1 :"+(i+1),R.drawable.ic_launcher_background);
-            resultList.add(a);
-        }
+    @Override
+    public void onStart() {
+        super.onStart();
+        searchOnYoutube("salam");
+    }
+
+    private void updateVideoFound(){
+        adapter = new SearchRecyclerViewAdapter(this.getContext(),resultList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void searchOnYoutube(final String keywords){
+        new Thread(){
+            public void run(){
+                YoutubeConnector yc = new YoutubeConnector(getActivity());
+                resultList = new ArrayList<>();
+                resultList = yc.search(keywords);
+                handler.post(new Runnable(){
+                    public void run(){
+                        updateVideoFound();
+                    }
+                });
+            }
+        }.start();
     }
 }
