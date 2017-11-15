@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter adapter;
     Button btn;
+    EditText inputKeyword;
 
     private Handler handler;
 
@@ -87,11 +89,14 @@ public class SearchFragment extends Fragment {
         adapter = new SearchRecyclerViewAdapter(getContext(),resultList);
         recyclerView.setAdapter(adapter);
 
+        inputKeyword=(EditText)view.findViewById(R.id.input);
          btn=(Button)view.findViewById(R.id.button);
          btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new LongOperation().execute();
+                String keyGetFromInout="";
+                keyGetFromInout=inputKeyword.getText().toString();
+                new LongOperation().execute(keyGetFromInout);
             }
         });
 
@@ -103,12 +108,13 @@ public class SearchFragment extends Fragment {
         super.onStart();
     }
 
-    public class LongOperation extends AsyncTask<Void, Void, Void> {
+    public class LongOperation extends AsyncTask<String, Void, Void> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(String... strings) {
             YoutubeConnector yc = new YoutubeConnector(getContext());
-            resultList.addAll(yc.search("salam")) ;
-            int i = 1;
+            resultList.clear();
+            resultList.addAll(yc.search(strings[0])) ;
+
             return null;
         }
 

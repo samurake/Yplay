@@ -29,8 +29,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
         @BindView(R.id.title)
         TextView title;
-        @BindView(R.id.title1)
-        TextView title1;
+        //@BindView(R.id.title1)
+        //TextView title1;
         @BindView(R.id.image)
         ImageView image;
 
@@ -59,7 +59,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Result resultT = resultList.get(position);
         holder.title.setText(resultT.GetTitle());
-        holder.title1.setText(resultT.GetDescription());
+       // holder.title1.setText(resultT.GetDescription());
         Picasso.with(context).load(resultT.getThumbnailURL()).into(holder.image);
     }
 
